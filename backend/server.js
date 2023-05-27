@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const userRoutes = require("./routes/userRoutes");
+const cors = require("cors");
 // const path = require("path");
 const connectDB = require("./config/db");
 // eslint-disable-next-line unused-imports/no-unused-vars
@@ -11,6 +12,11 @@ dotenv.config();
 connectDB();
 const app = express();
 app.use(express.json());
+app.use(cors({
+	origin:["http://localhost:3000"],
+	methods:["GET","POST","PUT","DELETE"],
+	credentials:true,
+}));
 
 app.use("/user", userRoutes);
 

@@ -6,6 +6,8 @@
   background-color: #9DC08B;
   background-position: center;
   background-size: cover;
+  overflow: hidden;
+  flex-direction: column;
 }
 
 ::-webkit-scrollbar {
@@ -19,4 +21,13 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.navbar{
+  flex: 0.2;
+}
+
+.main{
+  flex: 0.8;
+  justify-content: center;  
 }

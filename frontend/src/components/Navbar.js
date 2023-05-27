@@ -53,9 +53,9 @@ import { useNavigate } from "react-router-dom";
                       </Text>
                   </Button>
   
-                  <Button className="btnRes" onClick={()=>navigate("/about")}>
+                  <Button className="btnRes" onClick={()=>navigate("/customer")}>
                     <Text as="b" fontSize="lg" fontFamily="Work sans" color="#40513B">
-                        About
+                        Customer
                       </Text>
                   </Button>
   

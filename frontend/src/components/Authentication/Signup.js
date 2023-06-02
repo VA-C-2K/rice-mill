@@ -12,14 +12,14 @@ const Signup = () => {
     const [phoneNumber, setPhoneNumber] = useState();
     const [confirmpassword, setConfirmpassword] = useState();
     const [password, setPassword] = useState();
-    const [loading, setPicLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const toast = useToast();
     const navigate = useNavigate();
 
     const handleClick = () => setShow(!show); 
 
     const submitHandler = async () => {
-        setPicLoading(true)
+        setLoading(true)
         if (!name || !password || !confirmpassword || !phoneNumber) {
             toast({
               title: "Please Fill all the Feilds",
@@ -28,7 +28,7 @@ const Signup = () => {
               isClosable: true,
               position: "bottom",
             });
-            setPicLoading(false);
+            setLoading(false);
             return;
           }
           if (password !== confirmpassword) {
@@ -39,6 +39,7 @@ const Signup = () => {
               isClosable: true,
               position: "bottom",
             });
+            setLoading(false);
             return;
           }
           try {
@@ -62,14 +63,15 @@ const Signup = () => {
             localStorage.setItem("userInfo", JSON.stringify(data));
             navigate("/home");
           } catch (error) {
+            console.log('error: ', error);
             toast({
               title: "Error Occured!",
-              description: error.response.data.message,
               status: "error",
               duration: 5000,
               isClosable: true,
               position: "bottom",
             });
+            setLoading(false);
           }
     }
     return (

@@ -80,7 +80,9 @@ const MenuLinks = ({ isOpen }) => {
         pt={[4, 4, 0, 0]}
       >
         <MenuItem to="/home"> Home </MenuItem>
-        <MenuItem to="/customer" > Cutomer </MenuItem>
+        <MenuItem to="/add" >
+          Add New
+       </MenuItem>
         <MenuItem to="/logout" isLast>
         <Button
           backgroundColor="#609966"

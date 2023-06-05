@@ -1,8 +1,9 @@
-import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, useToast, VStack } from '@chakra-ui/react';
+import { FormControl, FormLabel, Input, InputGroup, InputRightElement, useToast, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { config } from "../../api/auth.api";
+import CustomButton from '../CustomButton';
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -30,7 +31,6 @@ const Login = () => {
     }
     try {
        const data  = await axios.post(`http://127.0.0.1:5000/user/login`,{ password,phonenum:phoneNumber },config);
-       console.log('data: ', data);
           toast({
           title: "Login Successful",
           status: "success",
@@ -87,26 +87,24 @@ const Login = () => {
                       fontWeight={500}
                   />
                   <InputRightElement width={"4.5rem"}>
-                      <Button backgroundColor="#609966"
-                              color={"white"}
-                              _hover={{ bg: "#4a875d" }}
-                              h="1.75rem" size="sm" onClick={handleClick}>
+                      <CustomButton 
+                        h="1.75rem" 
+                        size="sm"
+                        onClick={handleClick}>
                           {show ? "Hide" : "Show"}
-                      </Button>
+                      </CustomButton>
                   </InputRightElement>
               </InputGroup>
           </FormControl>
-          <Button 
-                backgroundColor="#609966"
-                color={"white"}
-                _hover={{ bg: "#4a875d" }}
-                width="100%" style={{marginTop:15}} 
+          <CustomButton 
+                w="100%"
+                style={{marginTop:15}} 
                 onClick={submitHandler} 
                 isLoading={loading}
                 loadingText='Logging In Please Wait...'
                 >
               Login
-          </Button>
+          </CustomButton>
 
       </VStack>
     )

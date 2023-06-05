@@ -1,9 +1,10 @@
-import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useToast } from '@chakra-ui/react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { config } from "../../api/auth.api";
+import CustomButton from '../CustomButton';
 
 
 const Signup = () => {
@@ -74,6 +75,7 @@ const Signup = () => {
             setLoading(false);
           }
     }
+    
     return (
         <VStack
             spacing={'5px'}
@@ -118,11 +120,13 @@ const Signup = () => {
                         fontWeight={500}
                     />
                     <InputRightElement width={"4.5rem"}>
-                        <Button h="1.75rem" size="sm" onClick={handleClick} backgroundColor="#609966"
-                                color={"white"}
-                                _hover={{ bg: "#4a875d" }}>
+                        <CustomButton 
+                          h="1.75rem" 
+                          size="sm" 
+                          onClick={handleClick} 
+                          >
                             {show ? "Hide" : "Show"}
-                        </Button>
+                        </CustomButton>
                     </InputRightElement>
                 </InputGroup>
             </FormControl>
@@ -140,26 +144,26 @@ const Signup = () => {
                         fontWeight={500}
                     />
                     <InputRightElement width={"4.5rem"}>
-                        <Button h="1.75rem" size="sm" onClick={handleClick} backgroundColor="#609966"
-                                color={"white"}
-                                _hover={{ bg: "#4a875d" }}>
+                        <CustomButton 
+                          h="1.75rem" 
+                          size="sm" 
+                          onClick={handleClick}
+                        >
                             {show ? "Hide" : "Show"} 
-                        </Button>
+                        </CustomButton>
                     </InputRightElement>
                 </InputGroup>
             </FormControl>
 
-            <Button backgroundColor="#609966"
-                    color={"white"}
-                    _hover={{ bg: "#4a875d" }}
-                    width="100%"
-                    style={{ marginTop: 15 }} 
-                    onClick={submitHandler} 
-                    isLoading={loading}
-                    loadingText={`Please wait while we register you ${name}...`}
-                    >
+            <CustomButton 
+              w="100%"
+              style={{ marginTop: 15 }} 
+              onClick={submitHandler} 
+              isLoading={loading}
+              loadingText={`Please wait while we register you ${name}...`}
+              >
                 Sign Up
-            </Button>
+            </CustomButton>
 
         </VStack>
     )

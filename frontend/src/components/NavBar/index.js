@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link, Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
+import { Link, Box, Flex, Text, Stack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "../CustomButton";
 
 
 const NavBar = (props) => {
@@ -79,22 +80,15 @@ const MenuLinks = ({ isOpen }) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       >
-        <MenuItem to="/home"> Home </MenuItem>
-        <MenuItem to="/add" >
-          Add New
-       </MenuItem>
+        {/* <MenuItem to="/home"> Home </MenuItem> */}
         <MenuItem to="/logout" isLast>
-        <Button
-          backgroundColor="#609966"
-          color={"#EDF1D6"}
-          _hover={{ bg: "#4a875d" }}
-          variant="solid"
+        <CustomButton
           onClick={logouthandler}
           size={["sm", "md"]}
           id="logoutBtn"
         >
            Logout
-        </Button>
+        </CustomButton>
         </MenuItem>
       </Stack>
     </Box>

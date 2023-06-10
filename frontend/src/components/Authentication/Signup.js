@@ -51,7 +51,7 @@ const Signup = () => {
         {
           name:username,
           password,
-          phonenum: phonenumber
+          phonenumber
         },
         config
       );

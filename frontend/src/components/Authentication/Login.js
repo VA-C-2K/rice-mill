@@ -31,7 +31,7 @@ const Login = () => {
       return;
     }
     try {
-      const data = await axios.post(`http://127.0.0.1:5000/user/login`, { password, phonenum: phonenumber }, config);
+      const data = await axios.post(`http://127.0.0.1:5000/user/login`, { password, phonenumber }, config);
       toast({
         title: "Login Successful",
         status: "success",

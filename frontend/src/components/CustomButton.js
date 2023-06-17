@@ -1,8 +1,26 @@
-import { Button } from '@chakra-ui/react';
-import React from 'react';
+import { Button } from "@chakra-ui/react";
+import React from "react";
 
 const CustomButton = (props) => {
-    const { type,children, onClick, variant, size = ["sm", "md"], id, w, h, style, isLoading, loadingText, leftIcon, bg = "#609966", color = "#EDF1D6", _hover = { bg: "#4a875d" }, borderColor ,border} = props;
+  const {
+    type,
+    children,
+    onClick,
+    variant,
+    size = ["sm", "md"],
+    id,
+    w,
+    h,
+    style,
+    isLoading,
+    loadingText,
+    leftIcon,
+    bg = "#609966",
+    color = "#EDF1D6",
+    _hover = { bg: "#4a875d" },
+    borderColor,
+    border,
+  } = props;
 
   return (
     <Button
@@ -25,8 +43,7 @@ const CustomButton = (props) => {
     >
       {children}
     </Button>
-  )
-}
+  );
+};
 
-
-export default CustomButton
+export default CustomButton;

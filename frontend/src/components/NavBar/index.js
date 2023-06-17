@@ -3,7 +3,6 @@ import { Link, Box, Flex, Text, Stack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../CustomButton";
 
-
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -11,7 +10,7 @@ const NavBar = (props) => {
   return (
     <NavBarContainer {...props}>
       <Text as="b" fontSize="lg" fontFamily="Work sans" color="#40513B">
-         Mahaveer Rice Mill
+        Mahaveer Rice Mill
       </Text>
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
@@ -30,12 +29,7 @@ const CloseIcon = () => (
 );
 
 const MenuIcon = () => (
-  <svg
-    width="24px"
-    viewBox="0 0 20 20"
-    xmlns="http://www.w3.org/2000/svg"
-    fill="#40513B"
-  >
+  <svg width="24px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="#40513B">
     <title>Menu</title>
     <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
   </svg>
@@ -52,7 +46,7 @@ const MenuToggle = ({ toggle, isOpen }) => {
 const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
   const navigate = useNavigate();
   return (
-    <Link onClick={()=>navigate(to)}>
+    <Link onClick={() => navigate(to)}>
       <Text display="block" {...rest}>
         {children}
       </Text>
@@ -62,17 +56,14 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
 
 const MenuLinks = ({ isOpen }) => {
   const navigate = useNavigate();
-  
+
   const logouthandler = () => {
-      localStorage.removeItem("userInfo");
-      navigate("/")
-  }
+    localStorage.removeItem("userInfo");
+    navigate("/");
+  };
 
   return (
-    <Box
-      display={{ base: isOpen ? "block" : "none", md: "block" }}
-      flexBasis={{ base: "100%", md: "auto" }}
-    >
+    <Box display={{ base: isOpen ? "block" : "none", md: "block" }} flexBasis={{ base: "100%", md: "auto" }}>
       <Stack
         spacing={8}
         align="center"
@@ -81,14 +72,10 @@ const MenuLinks = ({ isOpen }) => {
         pt={[4, 4, 0, 0]}
       >
         {/* <MenuItem to="/home"> Home </MenuItem> */}
-        <MenuItem to="/logout" isLast>
-        <CustomButton
-          onClick={logouthandler}
-          size={["sm", "md"]}
-          id="logoutBtn"
-        >
-           Logout
-        </CustomButton>
+        <MenuItem isLast>
+          <CustomButton onClick={logouthandler} size={["sm", "md"]} id="logoutBtn">
+            Logout
+          </CustomButton>
         </MenuItem>
       </Stack>
     </Box>
@@ -97,18 +84,7 @@ const MenuLinks = ({ isOpen }) => {
 
 const NavBarContainer = ({ children, ...props }) => {
   return (
-    <Flex
-      as="nav"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      w="100%"
-      mb={2}
-      p={3}
-      bg={"#EDF1D6"}
-      color={"#40513B"}
-      {...props}
-    >
+    <Flex as="nav" align="center" justify="space-between" wrap="wrap" w="100%" mb={2} p={3} bg={"#EDF1D6"} color={"#40513B"} {...props}>
       {children}
     </Flex>
   );

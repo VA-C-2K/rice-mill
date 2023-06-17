@@ -1,13 +1,19 @@
 {
   "name": "rice-mill",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
   "scripts": {
     "start": "nodemon backend/server.js",
-    "lint:fix": "eslint src --fix",
-    "clean": "rimraf dist"
+    "lint:fix": "eslint frontend --fix",
+    "clean": "rimraf dist",
+    "prettier-frontend": "prettier --write frontend/",
+    "prettier-backend": "prettier --write backend/",
+    "lint": "eslint frontend/ --max-warnings 0"
   },
+  "pre-commit": [
+    "lint",
+    "prettier-frontend",
+    "prettier-backend"
+  ],
   "author": "Viraj-Shreyansh",
   "license": "ISC",
   "dependencies": {
@@ -25,7 +31,9 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "mongoose": "^7.1.1",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.7.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -44,7 +52,7 @@
     "core-js": "^3.6.5",
     "cross-env": "^6.0.3",
     "dotenv-webpack": "^1.8.0",
-    "eslint": "^7.7.0",
+    "eslint": "^8.12.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-lodash": "^7.4.0",
     "eslint-plugin-node": "^11.1.0",

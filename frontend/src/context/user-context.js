@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserContext = createContext();
 
@@ -18,11 +18,9 @@ const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <>
-        {children}
-      </>
+      <>{children}</>
     </UserContext.Provider>
-  )
+  );
 };
 
 export const UserState = () => {

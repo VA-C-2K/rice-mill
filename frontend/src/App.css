@@ -3,7 +3,7 @@
 .App {
   min-height: 100vh;
   display: flex;
-  background-color: #9DC08B;
+  background-color: #9dc08b;
   background-position: center;
   background-size: cover;
   overflow: hidden;
@@ -23,11 +23,11 @@
   background: #555;
 }
 
-.navbar{
+.navbar {
   flex: 0;
 }
 
-.main{
+.main {
   flex: 0.8;
-  justify-content: center;  
+  justify-content: center;
 }

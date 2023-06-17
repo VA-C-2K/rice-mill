@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import CutomerTable from "../components/CutomerComponent/CutomerTable";
+import Cutomer from "./customer";
 
 const HomePage = () => {
   return (
@@ -19,7 +19,7 @@ const HomePage = () => {
       </Box>
       <TabPanels>
         <TabPanel>
-          <CutomerTable />
+          <Cutomer />
         </TabPanel>
         <TabPanel>"Hello2"</TabPanel>
       </TabPanels>

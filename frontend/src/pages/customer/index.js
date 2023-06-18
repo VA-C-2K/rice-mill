@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Form from "./form";
+import FormContainer from "./form-container";
 import CustomerTable from "./customer-table";
 
 const Cutomer = () => {
   const [isUpdate, setIsUpdate] = useState(false);
   return (
     <>
-      <Form isUpdate={isUpdate} setIsUpdate={setIsUpdate} />
+      <FormContainer isUpdate={isUpdate} setIsUpdate={setIsUpdate} />
       <CustomerTable isUpdate={isUpdate} setIsUpdate={setIsUpdate} />
     </>
   );

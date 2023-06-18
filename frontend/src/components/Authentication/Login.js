@@ -63,5 +63,5 @@ const Login = () => {
     </Formik>
   );
 };
-Login.displayName = "LoginPage";
+
 export default withHOC(AuthPageProvider, Login);

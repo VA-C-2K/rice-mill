@@ -1,17 +1,4 @@
-import {
-  Box,
-  Flex,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  Stack,
-  Text,
-  VStack,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Stack, Text, VStack, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import CustomButton from "../../components/CustomButton";
 import { AddIcon } from "@chakra-ui/icons";
@@ -36,10 +23,10 @@ const FormContainer = (props) => {
           <ModalOverlay />
           <ModalContent bg="#EDF1D6" p={2}>
             <ModalHeader>
-            <Text as="b" fontSize="xl" fontFamily="Work sans" color="#40513B">
-              {isUpdate ? "Update Customer Details" : "Add Customer Details"}
-            </Text>
-              </ModalHeader>
+              <Text as="b" fontSize="xl" fontFamily="Work sans" color="#40513B">
+                {isUpdate ? "Update Customer Details" : "Add Customer Details"}
+              </Text>
+            </ModalHeader>
             {!isUpdate && <ModalCloseButton />}
             <Formik
               initialValues={getInitialValues()}

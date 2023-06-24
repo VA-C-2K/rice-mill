@@ -8,6 +8,7 @@ import { CustomerPageProvider, useCustomerPageContext } from "./provider";
 import withHOC from "../../utils/with-hoc";
 import FormikInput from "../../components/FormikInput";
 import FormikRadioButton from "../../components/FormikRadioButton";
+import SearchField from "../../components/searchFeild";
 
 const FormContainer = (props) => {
   const { loading } = useCustomerPageContext();
@@ -16,9 +17,14 @@ const FormContainer = (props) => {
   return (
     <Flex alignItems="end" flexDirection={"row-reverse"}>
       <Box py="3" px="1">
-        <CustomButton onClick={onOpen} leftIcon={<AddIcon />}>
-          Add Customer
-        </CustomButton>
+        <Flex alignItems="stretch" flexDirection={"row"}>
+        <Stack width={"lg"} style={{ marginRight: 20 }}>
+          <SearchField searchBy={"Phone Number, First Name"}/>
+        </Stack>
+          <CustomButton onClick={onOpen} leftIcon={<AddIcon />}>
+            Add Customer
+          </CustomButton>
+        </Flex>
         <Modal closeOnOverlayClick={false} isOpen={isOpen || isUpdate} onClose={onClose}>
           <ModalOverlay />
           <ModalContent bg="#EDF1D6" p={2}>
@@ -45,18 +51,29 @@ const FormContainer = (props) => {
                         name={`${FIELD_NAMES.PHONE_NUMBER}`}
                         label={"Phone Number"}
                         placeholder="Enter Your Phone Number"
+                        type="number"
                         variant="outline"
                         focusBorderColor="#609966"
                         _placeholder={{ opacity: 0.5, color: "#40513B" }}
                         color="#609966"
                         fontWeight={500}
-                        type="number"
                         border="1px"
                       />
                       <FormikInput
-                        name={`${FIELD_NAMES.NAME}`}
-                        label={"Name"}
-                        placeholder="Enter Your Name"
+                        name={`${FIELD_NAMES.FIRST_NAME}`}
+                        label={"First Name"}
+                        placeholder="Enter Your First Name"
+                        variant="outline"
+                        focusBorderColor="#609966"
+                        _placeholder={{ opacity: 0.5, color: "#40513B" }}
+                        color="#609966"
+                        fontWeight={500}
+                        border="1px"
+                      />
+                      <FormikInput
+                        name={`${FIELD_NAMES.LAST_NAME}`}
+                        label={"Last Name"}
+                        placeholder="Enter Your Last Name"
                         variant="outline"
                         focusBorderColor="#609966"
                         _placeholder={{ opacity: 0.5, color: "#40513B" }}

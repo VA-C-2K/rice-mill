@@ -8,12 +8,13 @@ const HomePage = () => {
       <Box mx="4">
         <Box bg="#EDF1D6" w="100%" py={1} px={10} borderRadius={"3xl"}>
           <TabList m="2px">
-            <Tab _selected={{ color: "white", bg: "#609966" }}>Cutomer</Tab>
+            <Tab _selected={{ color: "white", bg: "#609966" }}>Customer</Tab>
             <Tab _selected={{ color: "white", bg: "#609966" }}>Vendor</Tab>
             <Tab _selected={{ color: "white", bg: "#609966" }}>Products</Tab>
             <Tab _selected={{ color: "white", bg: "#609966" }}>Employee</Tab>
             <Tab _selected={{ color: "white", bg: "#609966" }}>Vehicle</Tab>
             <Tab _selected={{ color: "white", bg: "#609966" }}>Daily Expenses</Tab>
+            <Tab _selected={{ color: "white", bg: "#609966" }}>Attendance</Tab>
           </TabList>
         </Box>
       </Box>

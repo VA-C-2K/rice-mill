@@ -9,7 +9,7 @@ const CustomerTable = (props) => {
     <Box bg="#EDF1D6" w="100%" h="100%" p={3} borderWidth={"1px"} borderRadius={"lg"}>
       <TableContainer>
         <Table variant="simple" size={"sm"}>
-          <TableCaption>Cutomer Information</TableCaption>
+          <TableCaption>Customer Information</TableCaption>
           <Thead bg={"#9DC08B"} borderRadius={"lg"} h={"12"}>
             <Tr>
               <Th w={"12"}>
@@ -42,7 +42,7 @@ const CustomerTable = (props) => {
                 {" "}
                 <Text as="b" fontSize="sm" fontFamily="Work sans" color="#40513B">
                   {" "}
-                  Cutomer/Goverment{" "}
+                  Govt/ Cust {" "}
                 </Text>
               </Th>
               <Th></Th>

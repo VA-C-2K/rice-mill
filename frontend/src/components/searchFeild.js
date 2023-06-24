@@ -3,7 +3,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { GlobalState } from "../context/global-state-context";
 
 const SearchField = ({ searchBy }) => {
-    const { searchTerm,setSearchTerm } = GlobalState();
+  const { searchTerm, setSearchTerm } = GlobalState();
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -12,7 +12,7 @@ const SearchField = ({ searchBy }) => {
   return (
     <InputGroup>
       <InputLeftElement pointerEvents="none">
-        <SearchIcon  color="#609966" />
+        <SearchIcon color="#609966" />
       </InputLeftElement>
       <Input
         placeholder={`Search ${searchBy}`}

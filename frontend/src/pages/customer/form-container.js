@@ -18,9 +18,9 @@ const FormContainer = (props) => {
     <Flex alignItems="end" flexDirection={"row-reverse"}>
       <Box py="3" px="1">
         <Flex alignItems="stretch" flexDirection={"row"}>
-        <Stack width={"lg"} style={{ marginRight: 20 }}>
-          <SearchField searchBy={"Phone Number, First Name"}/>
-        </Stack>
+          <Stack width={"lg"} style={{ marginRight: 20 }}>
+            <SearchField searchBy={"Phone Number, First Name"} />
+          </Stack>
           <CustomButton onClick={onOpen} leftIcon={<AddIcon />}>
             Add Customer
           </CustomButton>

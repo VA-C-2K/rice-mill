@@ -42,7 +42,7 @@ const CustomerTable = (props) => {
                 {" "}
                 <Text as="b" fontSize="sm" fontFamily="Work sans" color="#40513B">
                   {" "}
-                  Govt/ Cust {" "}
+                  Govt/ Cust{" "}
                 </Text>
               </Th>
               <Th></Th>

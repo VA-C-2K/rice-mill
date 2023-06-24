@@ -12,9 +12,9 @@ root.render(
   <ChakraProvider>
     <BrowserRouter>
       <UserProvider>
-      <GlobalProvider>
-        <App />
-      </GlobalProvider>
+        <GlobalProvider>
+          <App />
+        </GlobalProvider>
       </UserProvider>
     </BrowserRouter>
   </ChakraProvider>

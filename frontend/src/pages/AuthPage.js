@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Container, Box, Text, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
-import Login from "../components/Authentication/Login";
-import Signup from "../components/Authentication/Signup";
 import { useNavigate } from "react-router-dom";
 // import IconApp from '../asset/icons.png';
+const Login = React.lazy(() => import("../components/Authentication/Login"));
+const Signup = React.lazy(() => import("../components/Authentication/Signup"));
 
 const AuthPage = () => {
   const navigate = useNavigate();

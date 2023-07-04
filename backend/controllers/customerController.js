@@ -3,7 +3,7 @@ const isEmpty = require("lodash/isEmpty");
 const Customer = require("../models/customerModel");
 
 const fetchCustomer = asyncHandler(async (req, res) => {
-  const { page = 1, perPage = 10, term, cust_id } = req.body;
+  const { term, cust_id, page = 1, perPage = 10 } = req.query;
   try {
     if (cust_id) {
       const customer = await Customer.findById(cust_id);
@@ -13,20 +13,15 @@ const fetchCustomer = asyncHandler(async (req, res) => {
         return res.status(404).json({ message: "Customer not found" });
       }
     }
-
-    const query = {};
-
-    if (!isEmpty(term)) {
-      query.$or = [{ phone_number: term }, { first_name: term }, { last_name: term }];
-    }
-
-    const totalCount = await Customer.countDocuments(query);
-
-    let customers = await Customer.find(query)
+    let customers = await Customer.find({})
       .sort({ first_name: 1 })
       .skip((page - 1) * perPage)
       .limit(perPage);
 
+    if (!isEmpty(term)) {
+      customers = customers.filter((cust) => cust.phone_number.includes(term) || cust.first_name.includes(term) || cust.last_name.includes(term))
+    }
+    const totalCount = customers.length;
     return res.status(200).json({
       customers,
       totalCount,

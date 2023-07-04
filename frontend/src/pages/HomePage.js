@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import Cutomer from "./customer";
+const Cutomer = React.lazy(() => import("./customer"));
 
 const HomePage = () => {
   return (

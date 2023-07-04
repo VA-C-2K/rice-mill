@@ -2,26 +2,32 @@ import { Box, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeade
 import React from "react";
 import CustomButton from "../../components/CustomButton";
 import { AddIcon } from "@chakra-ui/icons";
-import { Formik } from "formik";
-import { FIELD_NAMES, GovtOrCustEnums, getInitialValues, getValidation } from "./form-helper";
+import { FIELD_NAMES, GovtOrCustEnums, getInitialValues, } from "./form-helper";
 import { CustomerPageProvider, useCustomerPageContext } from "./provider";
 import withHOC from "../../utils/with-hoc";
 import FormikInput from "../../components/FormikInput";
 import FormikRadioButton from "../../components/FormikRadioButton";
 import SearchField from "../../components/searchFeild";
 
+
 const FormContainer = (props) => {
-  const { loading } = useCustomerPageContext();
-  const { isUpdate, setIsUpdate } = props;
+  const { loading,setSearchTerm,searchTerm } = useCustomerPageContext();
+  const { isUpdate, setIsUpdate, formik } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Flex alignItems="end" flexDirection={"row-reverse"}>
       <Box py="3" px="1">
         <Flex alignItems="stretch" flexDirection={"row"}>
-          <Stack width={"lg"} style={{ marginRight: 20 }}>
-            <SearchField searchBy={"Phone Number, First Name"} />
+          <Stack width={"md"} style={{ marginRight: 20 }}>
+            <SearchField loading={loading} searchTerm={searchTerm} setSearchTerm= {setSearchTerm} searchBy={"Phone No, Name"} />
           </Stack>
-          <CustomButton onClick={onOpen} leftIcon={<AddIcon />}>
+          <CustomButton onClick={() => {
+                formik.resetForm({
+                  values: getInitialValues(),
+                });
+                onOpen()
+          }} leftIcon={<AddIcon />}>
             Add Customer
           </CustomButton>
         </Flex>
@@ -34,16 +40,6 @@ const FormContainer = (props) => {
               </Text>
             </ModalHeader>
             {!isUpdate && <ModalCloseButton />}
-            <Formik
-              initialValues={getInitialValues()}
-              validationSchema={getValidation()}
-              onSubmit={(values, actions) => {
-                console.log(values);
-              }}
-              validateOnMount={true}
-              enableReinitialize={true}
-            >
-              {(formik) => (
                 <>
                   <ModalBody pb={6}>
                     <VStack as="form" spacing={"10px"} onSubmit={formik.handleSubmit}>
@@ -135,8 +131,6 @@ const FormContainer = (props) => {
                     </VStack>
                   </ModalBody>
                 </>
-              )}
-            </Formik>
           </ModalContent>
         </Modal>
       </Box>

@@ -1,127 +1,84 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import generateContext from "../../utils/generate-context";
-import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
-import { config } from "../../api/auth.api";
+import { authConfig } from "../../api";
+import { GlobalState } from "../../context/global-state-context";
+import { baseURL } from "../../api";
+import { UserState } from "../../context/user-context";
+import { getInitialValues } from "./form-helper";
 
 function useCustomerPage() {
   axios.defaults.withCredentials = true;
   const toast = useToast();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { searchTerm, tabChanged} = GlobalState();
+  const { user } = UserState();
+  const config = authConfig(user);
+  const [customerList ,setCustomerList] = useState([]);
 
-  const handleLogin = useCallback(
-    async (values, actions) => {
-      const { phonenumber, password } = values;
+  const handleCreate = useCallback(async()=>{
+
+  },[]);
+
+  const handleUpdate = useCallback(async({ id,isUpdate,setIsUpdate,formik})=>{
+    formik.resetForm({
+      values: getInitialValues(),
+    });
+    const data = await axios.get(`${baseURL}/customer?cust_id=${id}`, {
+      headers: config.headers
+    });
+    const values = getInitialValues(data?.data)
+    Object.entries(values).forEach(([key, value]) => {
+      formik.setFieldValue(key, value);
+    });
+    setIsUpdate(!isUpdate)
+  },[config.headers]);
+
+  const handleDelete = useCallback(async(id) =>{
+    console.log('id: ', id);
+
+  },[]);
+
+  const getCustomers = useCallback(async (searchTerm) => {
       setLoading(true);
-      if (!phonenumber) {
-        toast({
-          title: "Please Fill all the Feilds",
-          status: "warning",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-        setLoading(false);
-        return;
-      }
       try {
-        const data = await axios.post(`http://127.0.0.1:5000/user/login`, { password, phonenumber }, config);
-        toast({
-          title: "Login Successful",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
+        const data = await axios.get(`${baseURL}/customer?term=${searchTerm}`, {
+          headers: config.headers,
         });
-        localStorage.setItem("userInfo", JSON.stringify(data));
+        setCustomerList(data?.data);
         setLoading(false);
-        actions.resetForm();
-        navigate("/home");
       } catch (error) {
         toast({
-          title: "Error Occured!",
+          title: 'Error Occurred!',
           description: error.response.data.message,
-          status: "error",
+          status: 'error',
           duration: 5000,
           isClosable: true,
-          position: "bottom",
+          position: 'bottom',
         });
         setLoading(false);
       }
     },
-    [navigate, toast]
+    [config.headers, setCustomerList, setLoading, toast]
   );
 
-  const handleSignUp = useCallback(
-    async (values, actions) => {
-      const { username, phonenumber, password, confirmpassword } = values;
-      setLoading(true);
-      if (!username || !password || !confirmpassword || !phonenumber) {
-        toast({
-          title: "Please Fill all the Feilds",
-          status: "warning",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-        setLoading(false);
-        return;
-      }
-      if (password !== confirmpassword) {
-        toast({
-          title: "Passwords Do Not Match",
-          status: "warning",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-        setLoading(false);
-        return;
-      }
-      try {
-        const { data } = await axios.post(
-          "http://127.0.0.1:5000/user",
-          {
-            name: username,
-            password,
-            phonenumber,
-          },
-          config
-        );
-        toast({
-          title: "Registration Successful",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-        localStorage.setItem("userInfo", JSON.stringify(data));
-        actions.resetForm();
-        navigate("/home");
-      } catch (error) {
-        console.log("error: ", error);
-        toast({
-          title: "Error Occured!",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-        setLoading(false);
-      }
-    },
-    [navigate, toast]
-  );
+ 
+  useEffect(()=>{
+    getCustomers(searchTerm);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[searchTerm,tabChanged]);
 
   return useMemo(() => {
     return {
       loading,
-      handleLogin,
-      handleSignUp,
-    };
-  }, [loading, handleLogin, handleSignUp]);
+      customerList,
+      handleCreate,
+      handleUpdate,
+      handleDelete,
+      getCustomers
+      };
+  }, [customerList, getCustomers, handleCreate, handleDelete, handleUpdate, loading]);
 }
 
 export const [CustomerPageProvider, useCustomerPageContext] = generateContext(useCustomerPage);

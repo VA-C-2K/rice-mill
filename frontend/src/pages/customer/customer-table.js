@@ -5,8 +5,8 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { capitalizedString } from "../../utils/string-helper";
 
 const CustomerTable = (props) => {
-  const { isUpdate, setIsUpdate,formik ,customerList,handleUpdate,handleDelete} = props;
-  console.log('customerList: ', customerList);
+  const { isUpdate, setIsUpdate, formik, customerList, handleUpdate, handleDelete } = props;
+  console.log("customerList: ", customerList);
   return (
     <Box bg="#EDF1D6" w="100%" h="100%" p={3} borderWidth={"1px"} borderRadius={"lg"}>
       <TableContainer>
@@ -52,24 +52,39 @@ const CustomerTable = (props) => {
             </Tr>
           </Thead>
           <Tbody justifyContent={"center"}>
-            {customerList?.customers?.map((customer,index)=>
-            <Tr key={customer._id}>
-              <Td>{index+1}</Td>
-              <Td>{customer.first_name} {customer.last_name}</Td>
-              <Td>{customer.address}</Td>
-              <Td>{customer.phone_number}</Td>
-              <Td>{capitalizedString(customer.gov_or_cust)}</Td>
-              <Td>
-                <CustomButton size="sm" bg="transparent" color="#609966" _hover={{ bg: "#4a875d", color: "#EDF1D6" }} onClick={() =>handleUpdate({id:customer._id,isUpdate, setIsUpdate,formik}) }>
-                  {<EditIcon w={5} h={5} />}
-                </CustomButton>
-              </Td>
-              <Td>
-                <CustomButton size="sm" bg="transparent" color={"#D57E7E"} _hover={{ bg: "#D25959", color: "#EDF1D6" }} onClick={()=> handleDelete(customer._id)}>
-                  {<DeleteIcon w={5} h={5} />}
-                </CustomButton>
-              </Td>
-            </Tr>)}
+            {customerList?.customers?.map((customer, index) => (
+              <Tr key={customer._id}>
+                <Td>{index + 1}</Td>
+                <Td>
+                  {customer.first_name} {customer.last_name}
+                </Td>
+                <Td>{customer.address}</Td>
+                <Td>{customer.phone_number}</Td>
+                <Td>{capitalizedString(customer.gov_or_cust)}</Td>
+                <Td>
+                  <CustomButton
+                    size="sm"
+                    bg="transparent"
+                    color="#609966"
+                    _hover={{ bg: "#4a875d", color: "#EDF1D6" }}
+                    onClick={() => handleUpdate({ id: customer._id, isUpdate, setIsUpdate, formik })}
+                  >
+                    {<EditIcon w={5} h={5} />}
+                  </CustomButton>
+                </Td>
+                <Td>
+                  <CustomButton
+                    size="sm"
+                    bg="transparent"
+                    color={"#D57E7E"}
+                    _hover={{ bg: "#D25959", color: "#EDF1D6" }}
+                    onClick={() => handleDelete(customer._id)}
+                  >
+                    {<DeleteIcon w={5} h={5} />}
+                  </CustomButton>
+                </Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </TableContainer>

@@ -12,35 +12,36 @@ function useCustomerPage() {
   axios.defaults.withCredentials = true;
   const toast = useToast();
   const [loading, setLoading] = useState(false);
-  const { searchTerm, tabChanged} = GlobalState();
+  const { searchTerm, tabChanged } = GlobalState();
   const { user } = UserState();
   const config = authConfig(user);
-  const [customerList ,setCustomerList] = useState([]);
+  const [customerList, setCustomerList] = useState([]);
 
-  const handleCreate = useCallback(async()=>{
+  const handleCreate = useCallback(async () => {}, []);
 
-  },[]);
+  const handleUpdate = useCallback(
+    async ({ id, isUpdate, setIsUpdate, formik }) => {
+      formik.resetForm({
+        values: getInitialValues(),
+      });
+      const data = await axios.get(`${baseURL}/customer?cust_id=${id}`, {
+        headers: config.headers,
+      });
+      const values = getInitialValues(data?.data);
+      Object.entries(values).forEach(([key, value]) => {
+        formik.setFieldValue(key, value);
+      });
+      setIsUpdate(!isUpdate);
+    },
+    [config.headers]
+  );
 
-  const handleUpdate = useCallback(async({ id,isUpdate,setIsUpdate,formik})=>{
-    formik.resetForm({
-      values: getInitialValues(),
-    });
-    const data = await axios.get(`${baseURL}/customer?cust_id=${id}`, {
-      headers: config.headers
-    });
-    const values = getInitialValues(data?.data)
-    Object.entries(values).forEach(([key, value]) => {
-      formik.setFieldValue(key, value);
-    });
-    setIsUpdate(!isUpdate)
-  },[config.headers]);
+  const handleDelete = useCallback(async (id) => {
+    console.log("id: ", id);
+  }, []);
 
-  const handleDelete = useCallback(async(id) =>{
-    console.log('id: ', id);
-
-  },[]);
-
-  const getCustomers = useCallback(async (searchTerm) => {
+  const getCustomers = useCallback(
+    async (searchTerm) => {
       setLoading(true);
       try {
         const data = await axios.get(`${baseURL}/customer?term=${searchTerm}`, {
@@ -50,12 +51,12 @@ function useCustomerPage() {
         setLoading(false);
       } catch (error) {
         toast({
-          title: 'Error Occurred!',
+          title: "Error Occurred!",
           description: error.response.data.message,
-          status: 'error',
+          status: "error",
           duration: 5000,
           isClosable: true,
-          position: 'bottom',
+          position: "bottom",
         });
         setLoading(false);
       }
@@ -63,11 +64,10 @@ function useCustomerPage() {
     [config.headers, setCustomerList, setLoading, toast]
   );
 
- 
-  useEffect(()=>{
+  useEffect(() => {
     getCustomers(searchTerm);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[searchTerm,tabChanged]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm, tabChanged]);
 
   return useMemo(() => {
     return {
@@ -76,8 +76,8 @@ function useCustomerPage() {
       handleCreate,
       handleUpdate,
       handleDelete,
-      getCustomers
-      };
+      getCustomers,
+    };
   }, [customerList, getCustomers, handleCreate, handleDelete, handleUpdate, loading]);
 }
 

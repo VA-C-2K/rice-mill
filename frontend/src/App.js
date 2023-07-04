@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { UserState } from "./context/user-context";
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from './components/ErrorBoundary';
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./components/ErrorBoundary";
 import React, { Suspense } from "react";
 import Loader from "./components/Loader";
 const AuthPage = React.lazy(() => import("./pages/AuthPage"));
@@ -12,11 +12,9 @@ function App() {
   const { user } = UserState();
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}
-      onReset={() => { }}
-    >
+    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
       <div className="App">
-        <Suspense fallback={<Loader/>} >
+        <Suspense fallback={<Loader />}>
           {user && (
             <div className="navbar">
               <NavBar />

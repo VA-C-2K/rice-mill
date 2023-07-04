@@ -19,7 +19,7 @@ const fetchCustomer = asyncHandler(async (req, res) => {
       .limit(perPage);
 
     if (!isEmpty(term)) {
-      customers = customers.filter((cust) => cust.phone_number.includes(term) || cust.first_name.includes(term) || cust.last_name.includes(term))
+      customers = customers.filter((cust) => cust.phone_number.includes(term) || cust.first_name.includes(term) || cust.last_name.includes(term));
     }
     const totalCount = customers.length;
     return res.status(200).json({

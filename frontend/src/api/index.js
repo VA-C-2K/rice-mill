@@ -1,4 +1,3 @@
-
 export const baseURL = "http://localhost:5000";
 
 export const authConfig = (user) => {
@@ -6,6 +5,6 @@ export const authConfig = (user) => {
     headers: {
       "Content-type": "application/json",
       Authorization: `Bearer ${user?.data?.token}`,
-    }
-  }
+    },
+  };
 };

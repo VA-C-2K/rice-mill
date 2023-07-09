@@ -10,9 +10,9 @@ import FormikRadioButton from "../../components/FormikRadioButton";
 import SearchField from "../../components/searchFeild";
 
 const FormContainer = (props) => {
-  const { loading, setSearchTerm, searchTerm} = useCustomerPageContext();
-  const { isUpdate, setIsUpdate, formik,isOpen, onOpen, onClose } = props;
-  
+  const { loading, setSearchTerm, searchTerm } = useCustomerPageContext();
+  const { isUpdate, setIsUpdate, formik, isOpen, onOpen, onClose } = props;
+
   return (
     <Flex alignItems="end" flexDirection={"row-reverse"}>
       <Box py="3" px="1">

@@ -3,15 +3,15 @@ import React from "react";
 import CustomButton from "../../components/CustomButton";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { capitalizedString } from "../../utils/string-helper";
-import { useCustomerPageContext,CustomerPageProvider } from "./provider";
+import { useCustomerPageContext, CustomerPageProvider } from "./provider";
 import withHOC from "../../utils/with-hoc";
 import CustomerTableSkeleton from "../../components/Skeleton/Cutomer";
 
 const CustomerTable = (props) => {
-  const { customerList, handleUpdateClick, handleDelete,loading} = useCustomerPageContext();
+  const { customerList, handleUpdateClick, handleDelete, loading } = useCustomerPageContext();
   const { isUpdate, setIsUpdate, formik } = props;
-  if(loading){
-    return <CustomerTableSkeleton/>
+  if (loading) {
+    return <CustomerTableSkeleton />;
   }
   return (
     <Box bg="#EDF1D6" w="100%" h="100%" p={3} borderWidth={"1px"} borderRadius={"lg"}>

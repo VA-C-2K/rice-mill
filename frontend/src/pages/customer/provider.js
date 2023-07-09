@@ -19,7 +19,8 @@ function useCustomerPage() {
   const [isSubmited, setIsSubmited] = useState(false);
   const [customerId, setCustomerId] = useState();
 
-  const handleCreate = useCallback(async (values, actions, onClose) => {
+  const handleCreate = useCallback(
+    async (values, actions, onClose) => {
       const { address, first_name, gov_or_cust, last_name, phone_number } = values;
       setLoading(true);
       try {
@@ -59,9 +60,11 @@ function useCustomerPage() {
         setLoading(false);
       }
     },
-  [config.headers, isSubmited, toast]);
+    [config.headers, isSubmited, toast]
+  );
 
-  const handleUpdate = useCallback(async (values, actions, setIsUpdate) => {
+  const handleUpdate = useCallback(
+    async (values, actions, setIsUpdate) => {
       const { address, first_name, gov_or_cust, last_name, phone_number } = values;
       setLoading(true);
       try {
@@ -102,9 +105,11 @@ function useCustomerPage() {
         setLoading(false);
       }
     },
-  [config.headers, customerId, isSubmited, toast]);
+    [config.headers, customerId, isSubmited, toast]
+  );
 
-  const handleUpdateClick = useCallback(async ({ id, isUpdate, setIsUpdate, formik }) => {
+  const handleUpdateClick = useCallback(
+    async ({ id, isUpdate, setIsUpdate, formik }) => {
       formik.resetForm({
         values: getInitialValues(),
       });
@@ -118,17 +123,16 @@ function useCustomerPage() {
       });
       setIsUpdate(!isUpdate);
     },
-  [config.headers]);
+    [config.headers]
+  );
 
-  const handleDelete = useCallback(async (id) => {
-    setLoading(true);
+  const handleDelete = useCallback(
+    async (id) => {
+      setLoading(true);
       try {
-        await axios.delete(
-          `${baseURL}/customer/delete?cust_id=${id}`,
-          {
-            headers: config.headers,
-          }
-        );
+        await axios.delete(`${baseURL}/customer/delete?cust_id=${id}`, {
+          headers: config.headers,
+        });
         toast({
           title: "Customer Deleted Successfully!",
           status: "success",
@@ -149,9 +153,12 @@ function useCustomerPage() {
         });
         setLoading(false);
       }
-  }, [config.headers, isSubmited, toast]);
+    },
+    [config.headers, isSubmited, toast]
+  );
 
-  const getCustomers = useCallback(async (searchTerm) => {
+  const getCustomers = useCallback(
+    async (searchTerm) => {
       setLoading(true);
       try {
         const data = await axios.get(`${baseURL}/customer?term=${searchTerm}`, {
@@ -171,7 +178,8 @@ function useCustomerPage() {
         setLoading(false);
       }
     },
-  [config.headers, setCustomerList, setLoading, toast]);
+    [config.headers, setCustomerList, setLoading, toast]
+  );
 
   useEffect(() => {
     getCustomers(searchTerm, isSubmited);

@@ -9,7 +9,7 @@ const FormContainer = React.lazy(() => import("./form-container"));
 const CustomerTable = React.lazy(() => import("./customer-table"));
 
 const Cutomer = () => {
-  const { handleCreate,handleUpdate } = useCustomerPageContext();
+  const { handleCreate, handleUpdate } = useCustomerPageContext();
   const { setTabChanged } = GlobalState();
   const [isUpdate, setIsUpdate] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -20,10 +20,10 @@ const Cutomer = () => {
         initialValues={getInitialValues()}
         validationSchema={getValidation()}
         onSubmit={(values, actions) => {
-          if(isUpdate){
-            handleUpdate(values,actions,setIsUpdate);
-          }else{
-            handleCreate(values,actions,onClose);
+          if (isUpdate) {
+            handleUpdate(values, actions, setIsUpdate);
+          } else {
+            handleCreate(values, actions, onClose);
           }
         }}
         validateOnMount={true}
@@ -31,19 +31,8 @@ const Cutomer = () => {
       >
         {(formik) => (
           <>
-            <FormContainer 
-              isUpdate={isUpdate}
-              setIsUpdate={setIsUpdate} 
-              formik={formik} 
-              isOpen={isOpen}
-              onOpen={onOpen}
-              onClose={onClose}
-            />
-            <CustomerTable
-              isUpdate={isUpdate}
-              setIsUpdate={setIsUpdate}
-              formik={formik}
-            />
+            <FormContainer isUpdate={isUpdate} setIsUpdate={setIsUpdate} formik={formik} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+            <CustomerTable isUpdate={isUpdate} setIsUpdate={setIsUpdate} formik={formik} />
           </>
         )}
       </Formik>

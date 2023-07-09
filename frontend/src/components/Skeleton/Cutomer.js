@@ -50,7 +50,7 @@ const CustomerTableSkeleton = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {[1,2,3,4,5,6,7,8,9,10].map((item, index) => (
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
               <Tr key={index} style={breathingEffectStyle}>
                 <Td></Td>
                 <Td></Td>

@@ -1,17 +1,22 @@
-import { Box, Table, TableCaption, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 import React from "react";
 import CustomButton from "../../components/CustomButton";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { capitalizedString } from "../../utils/string-helper";
+import { useCustomerPageContext,CustomerPageProvider } from "./provider";
+import withHOC from "../../utils/with-hoc";
+import CustomerTableSkeleton from "../../components/Skeleton/Cutomer";
 
 const CustomerTable = (props) => {
-  const { isUpdate, setIsUpdate, formik, customerList, handleUpdate, handleDelete } = props;
-  console.log("customerList: ", customerList);
+  const { customerList, handleUpdateClick, handleDelete,loading} = useCustomerPageContext();
+  const { isUpdate, setIsUpdate, formik } = props;
+  if(loading){
+    return <CustomerTableSkeleton/>
+  }
   return (
     <Box bg="#EDF1D6" w="100%" h="100%" p={3} borderWidth={"1px"} borderRadius={"lg"}>
       <TableContainer>
         <Table variant="simple" size={"sm"}>
-          <TableCaption>Customer Information</TableCaption>
           <Thead bg={"#9DC08B"} borderRadius={"lg"} h={"12"}>
             <Tr>
               <Th w={"12"}>
@@ -67,7 +72,7 @@ const CustomerTable = (props) => {
                     bg="transparent"
                     color="#609966"
                     _hover={{ bg: "#4a875d", color: "#EDF1D6" }}
-                    onClick={() => handleUpdate({ id: customer._id, isUpdate, setIsUpdate, formik })}
+                    onClick={() => handleUpdateClick({ id: customer._id, isUpdate, setIsUpdate, formik })}
                   >
                     {<EditIcon w={5} h={5} />}
                   </CustomButton>
@@ -92,4 +97,4 @@ const CustomerTable = (props) => {
   );
 };
 
-export default CustomerTable;
+export default withHOC(CustomerPageProvider, CustomerTable);

@@ -16,14 +16,99 @@ function useCustomerPage() {
   const { user } = UserState();
   const config = authConfig(user);
   const [customerList, setCustomerList] = useState([]);
+  const [isSubmited, setIsSubmited] = useState(false);
+  const [customerId, setCustomerId] = useState();
 
-  const handleCreate = useCallback(async () => {}, []);
+  const handleCreate = useCallback(async (values, actions, onClose) => {
+      const { address, first_name, gov_or_cust, last_name, phone_number } = values;
+      setLoading(true);
+      try {
+        await axios.post(
+          `${baseURL}/customer/create`,
+          {
+            address,
+            first_name,
+            gov_or_cust,
+            last_name,
+            phone_number,
+          },
+          {
+            headers: config.headers,
+          }
+        );
+        toast({
+          title: "Customer Created Successfully!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoading(false);
+        actions.resetForm();
+        setIsSubmited(!isSubmited);
+        onClose(false);
+      } catch (error) {
+        toast({
+          title: "Error Occured!",
+          description: error.response.data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoading(false);
+      }
+    },
+  [config.headers, isSubmited, toast]);
 
-  const handleUpdate = useCallback(
-    async ({ id, isUpdate, setIsUpdate, formik }) => {
+  const handleUpdate = useCallback(async (values, actions, setIsUpdate) => {
+      const { address, first_name, gov_or_cust, last_name, phone_number } = values;
+      setLoading(true);
+      try {
+        await axios.put(
+          `${baseURL}/customer/update`,
+          {
+            cust_id: customerId,
+            address,
+            first_name,
+            gov_or_cust,
+            last_name,
+            phone_number,
+          },
+          {
+            headers: config.headers,
+          }
+        );
+        toast({
+          title: "Customer Updated Successfully!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoading(false);
+        actions.resetForm();
+        setIsSubmited(!isSubmited);
+        setIsUpdate(false);
+      } catch (error) {
+        toast({
+          title: "Error Occured!",
+          description: error.response.data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoading(false);
+      }
+    },
+  [config.headers, customerId, isSubmited, toast]);
+
+  const handleUpdateClick = useCallback(async ({ id, isUpdate, setIsUpdate, formik }) => {
       formik.resetForm({
         values: getInitialValues(),
       });
+      setCustomerId(id);
       const data = await axios.get(`${baseURL}/customer?cust_id=${id}`, {
         headers: config.headers,
       });
@@ -33,15 +118,40 @@ function useCustomerPage() {
       });
       setIsUpdate(!isUpdate);
     },
-    [config.headers]
-  );
+  [config.headers]);
 
   const handleDelete = useCallback(async (id) => {
-    console.log("id: ", id);
-  }, []);
+    setLoading(true);
+      try {
+        await axios.delete(
+          `${baseURL}/customer/delete?cust_id=${id}`,
+          {
+            headers: config.headers,
+          }
+        );
+        toast({
+          title: "Customer Deleted Successfully!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoading(false);
+        setIsSubmited(!isSubmited);
+      } catch (error) {
+        toast({
+          title: "Error Occured!",
+          description: error.response.data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoading(false);
+      }
+  }, [config.headers, isSubmited, toast]);
 
-  const getCustomers = useCallback(
-    async (searchTerm) => {
+  const getCustomers = useCallback(async (searchTerm) => {
       setLoading(true);
       try {
         const data = await axios.get(`${baseURL}/customer?term=${searchTerm}`, {
@@ -61,24 +171,24 @@ function useCustomerPage() {
         setLoading(false);
       }
     },
-    [config.headers, setCustomerList, setLoading, toast]
-  );
+  [config.headers, setCustomerList, setLoading, toast]);
 
   useEffect(() => {
-    getCustomers(searchTerm);
+    getCustomers(searchTerm, isSubmited);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm, tabChanged]);
+  }, [searchTerm, tabChanged, isSubmited]);
 
   return useMemo(() => {
     return {
       loading,
       customerList,
       handleCreate,
-      handleUpdate,
+      handleUpdateClick,
       handleDelete,
       getCustomers,
+      handleUpdate,
     };
-  }, [customerList, getCustomers, handleCreate, handleDelete, handleUpdate, loading]);
+  }, [customerList, getCustomers, handleCreate, handleDelete, handleUpdate, handleUpdateClick, loading]);
 }
 
 export const [CustomerPageProvider, useCustomerPageContext] = generateContext(useCustomerPage);

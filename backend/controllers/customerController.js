@@ -83,8 +83,7 @@ const updateCustomer = asyncHandler(async (req, res) => {
 });
 
 const deleteCustomer = asyncHandler(async (req, res) => {
-  const { cust_id } = req.body;
-
+  const { cust_id } = req.query;
   try {
     const customerExists = await Customer.findById(cust_id);
     if (!customerExists) {

@@ -15,17 +15,6 @@ function useAuthPage() {
     async (values, actions) => {
       const { phonenumber, password } = values;
       setLoading(true);
-      if (!phonenumber) {
-        toast({
-          title: "Please Fill all the Feilds",
-          status: "warning",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-        setLoading(false);
-        return;
-      }
       try {
         const data = await axios.post(`http://127.0.0.1:5000/user/login`, { password, phonenumber }, config);
         toast({

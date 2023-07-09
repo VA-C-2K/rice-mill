@@ -4,13 +4,15 @@ import { getInitialValues, getValidation } from "./form-helper";
 import { Formik } from "formik";
 import { CustomerPageProvider, useCustomerPageContext } from "./provider";
 import withHOC from "../../utils/with-hoc";
+import { useDisclosure } from "@chakra-ui/react";
 const FormContainer = React.lazy(() => import("./form-container"));
 const CustomerTable = React.lazy(() => import("./customer-table"));
 
 const Cutomer = () => {
-  const [isUpdate, setIsUpdate] = useState(false);
+  const { handleCreate,handleUpdate } = useCustomerPageContext();
   const { setTabChanged } = GlobalState();
-  const { customerList, handleUpdate, handleDelete } = useCustomerPageContext();
+  const [isUpdate, setIsUpdate] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   setTabChanged("customer");
   return (
     <>
@@ -18,21 +20,29 @@ const Cutomer = () => {
         initialValues={getInitialValues()}
         validationSchema={getValidation()}
         onSubmit={(values, actions) => {
-          console.log(values);
+          if(isUpdate){
+            handleUpdate(values,actions,setIsUpdate);
+          }else{
+            handleCreate(values,actions,onClose);
+          }
         }}
         validateOnMount={true}
         enableReinitialize={true}
       >
         {(formik) => (
           <>
-            <FormContainer isUpdate={isUpdate} setIsUpdate={setIsUpdate} formik={formik} />
+            <FormContainer 
+              isUpdate={isUpdate}
+              setIsUpdate={setIsUpdate} 
+              formik={formik} 
+              isOpen={isOpen}
+              onOpen={onOpen}
+              onClose={onClose}
+            />
             <CustomerTable
               isUpdate={isUpdate}
               setIsUpdate={setIsUpdate}
               formik={formik}
-              customerList={customerList}
-              handleUpdate={handleUpdate}
-              handleDelete={handleDelete}
             />
           </>
         )}

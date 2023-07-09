@@ -1,4 +1,4 @@
-import { Box, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Stack, Text, VStack, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Stack, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import CustomButton from "../../components/CustomButton";
 import { AddIcon } from "@chakra-ui/icons";
@@ -10,10 +10,9 @@ import FormikRadioButton from "../../components/FormikRadioButton";
 import SearchField from "../../components/searchFeild";
 
 const FormContainer = (props) => {
-  const { loading, setSearchTerm, searchTerm } = useCustomerPageContext();
-  const { isUpdate, setIsUpdate, formik } = props;
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const { loading, setSearchTerm, searchTerm} = useCustomerPageContext();
+  const { isUpdate, setIsUpdate, formik,isOpen, onOpen, onClose } = props;
+  
   return (
     <Flex alignItems="end" flexDirection={"row-reverse"}>
       <Box py="3" px="1">
